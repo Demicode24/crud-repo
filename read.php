@@ -2,21 +2,8 @@
   require('database.php');
 
   // create new user
-  if($_GET["show"] == "all") {
-    try{
-      $statement = $pdo->prepare(
-        'SELECT * FROM users;'
-      );
-      $statement->execute();
-
-      $results = $statement->fetchAll(PDO::FETCH_OBJ);
-      echo "Read from table users</br>";
-    }catch(PDOException $e){
-      echo "<h4 style='color: red;'>".$e->getMessage()."</h4>";
-    }
-  }; 
   
-    if($_GET["show"] == "one" && isset($_GET["id"])) {
+    if(isset($_GET["show"]) && isset($_GET["id"])) {
       $id = $_GET["id"];
      try{
       $statement = $pdo->prepare(
@@ -25,10 +12,13 @@
       $statement->execute(["id" => $id]);
 
       $results = $statement->fetchAll(PDO::FETCH_OBJ);
-      echo "Read from table users</br>";
+      // echo "Read from table users</br>";
     }catch(PDOException $e){
       echo "<h4 style='color: red;'>".$e->getMessage()."</h4>";
     }
+  } else {
+    echo "<script>location.href='/'</script>";
+    die();
   }
 ?>
 <!DOCTYPE html>
@@ -58,10 +48,10 @@
       <td><?php echo $user->age; ?></td>
       <td><a href="/update.php?id=<?php echo $user->id; ?>">edit</a></td>
       <td><a href="/delete.php?id=<?php echo $user->id; ?>" onclick="confirm();">delete</a></td>
-     <h1><?php echo $user->first_name; ?></h1>
-    </tr>
-  
-  <?php } ?>
   </table>
+  <?php } ?>
+  <a href="/">Go Back</a>
+  
 </body>
 </html>
+<!-- https://github.com/Demicode24/crud-repo.git -->

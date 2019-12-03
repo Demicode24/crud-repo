@@ -18,8 +18,8 @@
 
       $id = $pdo->lastInsertId();
 
-      echo "<script>location.href='/read.php?show=one&id={$id}'</script>";
-      echo "<script>location.href='/read.php?show=one&id={$id}'</script>";
+
+      echo "<script>location.href='/'</script>";
     } catch(PDOException $e){
       echo "<h4 style='color: red;'>".$e->getMessage()."</h4>";
     }
